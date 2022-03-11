@@ -10,7 +10,8 @@ Original file is located at
 pip install python_telegram_bot==12.4.2
 
 pip install telegram
-
+import os
+PORT = int(os.environ.get('PORT', 5000))
 import logging, time
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import (
@@ -487,7 +488,10 @@ def main() -> None:
     dispatcher.add_handler(conv_handler)
     updater.dispatcher.add_handler(CommandHandler('help', help_command))
     # Start the Bot
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path="5274169669:AAE0z_DxdU5A3UzDC2quAO0XzEJUDiPptjA")
+    updater.bot.setWebhook('https://memorygamebot.herokuapp.com/' + "5274169669:AAE0z_DxdU5A3UzDC2quAO0XzEJUDiPptjA")
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
